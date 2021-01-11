@@ -28,14 +28,20 @@ class Firefly(object):
         now = datetime.datetime.now()
         payload = {
             "transactions": [{
-                "type": "withdrawal",
+                "type": "withdrawal" if float(amount) > 0 else "deposit",
                 "description": description,
                 "date": now.strftime("%Y-%m-%d"),
-                "amount": amount,
+                "amount": abs(float(amount)),
                 "budget_name": budget,
                 "category_name": category,
             }]
         }
+
+        if float(amount) < 0:
+            destination_account, source_account = source_account, destination_account
+            if source_account is None:
+                source_account = description
+
         if source_account.isnumeric():
             payload["transactions"][0]["source_id"] = source_account
         else:

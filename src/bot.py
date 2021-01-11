@@ -181,7 +181,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("help", help))
     updater.dispatcher.add_handler(CommandHandler("about", about))
     updater.dispatcher.add_handler(MessageHandler(
-        filters=Filters.regex("^[0-9]+"), callback=spend))
+        filters=Filters.regex("^-?[0-9]+"), callback=spend))
     updater.dispatcher.add_error_handler(error)
     updater.dispatcher.add_handler(conversation_handler)
 
